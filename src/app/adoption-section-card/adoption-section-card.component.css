@@ -1,0 +1,73 @@
+#block_container
+{
+   display:inline-block;
+}
+
+#bloc1, #bloc2
+{
+    float: left;
+    padding: 0px;
+    margin: 0px;
+}
+
+p {
+    color:#757575;
+    padding: 0px;
+    font-size: 13px;
+    
+}
+
+i1 {
+    color:#212121;
+    font-size: 14px;
+    font-size: 13px;
+
+}
+
+
+
+.app-content {
+  padding: 20px;
+}
+
+.app-content md-card {
+  margin: 20px;
+}
+
+
+.app-content md-checkbox {
+  margin: 10px;
+}
+
+
+.app-icon-button {
+  box-shadow: none;
+  user-select: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  filter: none;
+  font-weight: normal;
+  height: auto;
+  line-height: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+
+p {
+  
+  font-family: roboto;
+ 
+}
+
+.demo-2 {
+  font-size: 14px;
+}
+
+td {
+    padding: 0px;
+}
+

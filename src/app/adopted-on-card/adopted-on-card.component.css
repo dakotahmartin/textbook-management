@@ -1,0 +1,31 @@
+.table-header {
+    
+    color: #757575;
+    font-size: 12px;
+    
+}
+
+
+td {
+    
+    vertical-align: top;
+    padding-top: 20px;
+    padding-right: 32px;
+    
+}
+
+tr td {
+    
+  border-bottom:1pt solid #e0e0e0;
+  padding-bottom: 16px;
+  
+}
+
+p {
+    font-size: 13px;
+    margin: 0px;
+}
+
+tr.hoverable:hover {
+  background-color: #eee
+}

@@ -1,0 +1,76 @@
+
+p2 {
+    
+  color:#212121; 
+  font-size: 13px;
+    
+}
+
+p {
+    
+  color:#757575; 
+  font-size: 13px;
+  padding-bottom: 10px;
+  padding-top: 1px;
+    
+}
+
+tr td p {
+  
+  color:#757575;  
+  padding: 0px;
+  padding-top: 1px;
+  margin: 0px;
+  font-size: 13px;
+  text-align: right;
+  
+}
+
+tr td p2 {
+  
+  color:#212121;  
+  padding: 0px;
+  margin: 0px;
+  font-size: 13px;
+  
+}
+
+tr td {
+    
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    
+}
+
+#block_container {
+    
+   display:inline-block;
+   
+}
+
+#bloc1, #bloc2, #bloc3 {
+    
+    float: left;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.app-icon-button {
+  box-shadow: none;
+  user-select: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  filter: none;
+  font-weight: normal;
+  height: auto;
+  line-height: inherit;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
