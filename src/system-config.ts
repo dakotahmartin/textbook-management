@@ -21,7 +21,7 @@ const materialPkgs:string[] = [
   'icon',
   'list',
   'checkbox',
-  'grid-list'
+  'grid-list',
 ];
 
 materialPkgs.forEach((pkg) => {
@@ -51,6 +51,8 @@ const barrels: string[] = [
   'app/title-card',
   'app/adopted-on-card',
   'app/adoption-section-card',
+  'app/edit-term-dialog',
+  'app/delete-term-dialog',
   /** @cli-barrel */
 ];
 

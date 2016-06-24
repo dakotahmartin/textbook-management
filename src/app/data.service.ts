@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class DataService {
     
     private _schoolsUrl = 'api/data/schools.json';
-    private _termsUrl = 'api/data/terms.json';
+    private _adoptionsByTitleUrl = 'api/data/adoptionsByTitle.json';
     
     constructor(private _http: Http) {
         
@@ -18,8 +18,13 @@ export class DataService {
             .map((response: Response) => <any[]>response.json())
     }
     
-    getTerms() {
-        return this._http.get(this._termsUrl)
+    getTerms(url) {
+        return this._http.get(url)
+            .map((response: Response) => <any[]>response.json())
+    }
+    
+    getAdoptionsByTitle() {
+        return this._http.get(this._adoptionsByTitleUrl)
             .map((response: Response) => <any[]>response.json())
     }
     

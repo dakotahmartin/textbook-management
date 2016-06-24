@@ -1,0 +1,17 @@
+[
+    { 
+        "name":"Main Summer 2016",
+        "id": 12341,
+        "childUrl": "api/data/departments/12341.json"
+    },
+    {
+        "name":"Main Fall 2016",
+        "id": 12342,
+        "childUrl": "api/data/departments/12342.json"
+    },
+    {
+        "name":"Main Spring 2017",
+        "id": 12343,
+        "childUrl": "api/data/departments/12343.json"
+    }
+]

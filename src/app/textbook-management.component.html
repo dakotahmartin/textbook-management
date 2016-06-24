@@ -1,61 +1,72 @@
-<!-- This is the sidenav component wrapper -->
+<!-- This is the sidenav component wrapper. This cannot be a component. -->
 <md-sidenav-layout>
-    <md-sidenav #sidenav mode="side" opened="true"class="app-sidenav" style="padding: 0px; margin: 0px; width: 250px; height: 900px">
+    <md-sidenav #sidenav mode = "side" opened = "true" style = "padding: 0px; margin: 0px; width: 250px">
       <md-list dense>
         
         <!-- School menu -->
         
-        <div class="school_dropdown">
-          <button (click) = "toggleSchoolMenu()" class = "catalog-menu-button">
+        <div>
+          <button (click) = "toggleSchoolDropdown()" class = "catalog-menu-button">
               <md-list-item>
                 <h3 md-line> School </h3>
                 <p md-line>
-                <span class="demo-2"> {{schoolMenuSelector}} </span>
+                <span class="demo-2"> {{schoolDisplayed}} </span>
                 </p>
               </md-list-item>
           </button>
-          <div (mouseleave) = "toggleSchoolMenu()" *ngIf = 'schoolMenu' class="dropdown-content">
-            <a *ngFor = 'let school of schools' (click) = "toggleSchoolMenu(); updateSchoolMenu([school])" href="#">{{school}}</a>
+          <div (mouseleave) = "toggleSchoolDropdown()" *ngIf = 'schoolDropdown' class="dropdown-content">
+            <a *ngFor = 'let school of schools' (click) = "toggleSchoolDropdown(); updateSchoolDropdown([school.name]); loadTerms([school.childUrl])">{{school.name}}</a>
           </div>
         </div>
         
         <!-- Term menu and more_vert -->
         
-        <div class="term_dropdown">
+        <div>
           <button class = "catalog-menu-button" id = "term-dd">
               <md-list-item>
                 <h3 md-line (click) = "toggleTermDropdown()"> Term </h3>
                 <p md-line (click) = "toggleTermDropdown()">
-                <span class="demo-2"> {{termDropdownSelector}} </span>
+                <span class="demo-2"> {{termDisplayed}} </span>
                 </p>
-                  <button (click) = "toggleTermMenu()" class = "more-vert-button">
+                  <button (click) = "toggleTermMenu()" class = "icon-button">
                     <md-icon class="material-icons">more_vert</md-icon>
                   </button>
               </md-list-item>
           </button>
           <div (mouseleave) = "toggleTermDropdown()" *ngIf = 'termDropdown' class="dropdown-content">
-            <a *ngFor = 'let term of terms' (click) = "toggleTermDropdown(); updateTermDropdown([term])" href="#">{{term}}</a>
+            <a *ngFor = 'let term of terms' (click) = "toggleTermDropdown(); updateTermDropdown([term.name])">{{term.name}}</a>
           </div>
           <div (mouseleave) = "toggleTermMenu()" *ngIf = 'termMenu' class="menu-content">
-            <a (click) = "toggleTermMenu()" href="#">Edit Term</a>
-            <a (click) = "toggleTermMenu()" href="#">Create Term</a>
-            <a (click) = "toggleTermMenu()" href="#">Delete Term</a>
+            <a (click) = "toggleTermMenu(); openOverlay(); toggleEditTermDialog()">Edit Term</a>
+            <a (click) = "toggleTermMenu(); openOverlay()">Create Term</a>
+            <a (click) = "toggleTermMenu(); openOverlay()">Delete Term</a>
           </div>
         </div>
         
         <!-- Department menu and more_vert -->
         
-        <button class = "catalog-menu-button">
-          <md-list-item>
-            <h3 md-line> Department </h3>
-            <p md-line>
-              <span class="demo-2"> -- </span>
-            </p>
-              <button class = "more-vert-button">
-                <md-icon class="material-icons">more_vert</md-icon>
-              </button>
-          </md-list-item>
-        </button>
+        <div>
+            <button class = "catalog-menu-button" id = "department-dd">
+               <md-list-item>
+                  <h3 md-line (click) = "toggleDepartmentDropdown()"> Department </h3>
+                  <p md-line (click) = "toggleDepartmentDropdown()">
+                    <span class="demo-2"> {{selectedDepartment}} </span>
+                  </p>
+                  <button (click) = "toggleDepartmentMenu()" class = "icon-button">
+                    <md-icon class="material-icons">more_vert</md-icon>
+                  </button>
+               </md-list-item>
+            </button>
+            <div (mouseleave) = "toggleDepartmentDropdown()" *ngIf = 'departmentDropdown' class="dropdown-content">
+                <a (click) = "toggleDepartmentDropdown()">--</a>
+                <a *ngFor = 'let department of departments' (click) = "toggleDepartmentDropdown(); updateDepartmentDropdown([department])">{{department}}</a>
+            </div>
+            <div (mouseleave) = "toggleDepartmentMenu()" *ngIf = 'departmentMenu' class="menu-content">
+                <a (click) = "toggleDepartmentMenu(); openOverlay(); toggleEditTermDialog()">Edit Department</a>
+                <a (click) = "toggleDepartmentMenu(); openOverlay()">Create Department</a>
+                <a (click) = "toggleDepartmentMenu(); openOverlay()">Delete Department</a>
+            </div>
+        </div>
         
         <!-- Course menu and more_vert -->
         
@@ -65,7 +76,7 @@
             <p md-line>
               <span class="demo-2"> -- </span>
             </p>
-              <button class = "more-vert-button">
+              <button class = "icon-button">
                 <md-icon class="material-icons">more_vert</md-icon>
               </button>
           </md-list-item>
@@ -79,7 +90,7 @@
             <p md-line>
               <span class="demo-2"> -- </span>
             </p>
-              <button title = "Options" class = "more-vert-button">
+              <button class = "icon-button">
                 <md-icon class="material-icons">more_vert</md-icon>
               </button>
           </md-list-item>
@@ -89,115 +100,79 @@
         <md-divider></md-divider>
         <md-list dense>
           
-        <!-- Adoptions by Title and sub-menu -->
+        <!-- Adoptions by Title subheader and submenu -->
           
+        <div>
           <md-list-item style="padding-bottom: 10px">
             <p md-line>
             <span class="demo-2" style="font-size: 13px"> Adoptions by Title </span>
             </p>
-            <button class="app-icon-button">
-	            <i class="material-icons" style='color:#757575; padding-top: 3px'>list</i>
+            <button  (click) = "toggleAdoptionsMenu()" class="icon-button">
+	            <md-icon class="material-icons">list</md-icon>
 	          </button>
           </md-list-item>
-     
-          <!-- Adoptions -->
-          
-          <div class = "hoverable">
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>Art Through the Ages</h4>
-              <p md-line class="demo-2"> 9783746583746 </p>
-          </md-list-item>
+          <div (mouseleave) = "toggleAdoptionsMenu()" *ngIf = 'adoptionsMenu' class="menu-content">
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Refine Adoptions</a>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Add Adoption</a>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Delete Selected Adoptions</a>
+                <hr COLOR=#eee WIDTH=90% HR SIZE=0>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Create Order</a>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Print Course Labels</a>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Update Research Status</a>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Export Selected Adoptions</a>
+                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Select All / Select None</a>
+                
           </div>
+        </div>
           
-          <div class = "hoverable">
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>Anatomy and Physiology</h4>
-              <p md-line class="demo-2"> 9783746583857 </p>
-          </md-list-item>
-          </div>
+          <!-- Adoptions by Title -->
           
-          <div class = "hoverable">
+        <button *ngFor = 'let adoption of adoptionsByTitle' class = "catalog-menu-button" (click) = "selectAdoption([adoption.ISBN])" id = "{{adoption.ISBN}}">
           <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
+            <a md-list-avatar style="padding-bottom: 10px">
+              <md-checkbox [checked]="false">
               </md-checkbox>
-              <h4 md-line>Biology</h4>
-              <p md-line class="demo-2"> 9783746589859 </p>
+            </a>
+              <h4 md-line> {{adoption.Title}} </h4>
+              <p md-line class="demo-2"> {{adoption.ISBN}} </p>
           </md-list-item>
-          </div>
-          
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>Chemisty</h4>
-              <p md-line class="demo-2"> 9783746584475 </p>
-          </md-list-item>
-          
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>English</h4>
-              <p md-line class="demo-2"> 9783746589888 </p>
-          </md-list-item>
-          
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>English</h4>
-              <p md-line class="demo-2"> 9783746589888 </p>
-          </md-list-item>
-          
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>English</h4>
-              <p md-line class="demo-2"> 9783746589888 </p>
-          </md-list-item>
-          
-          <md-list-item>
-              <md-checkbox md-list-avatar style="padding-bottom: 12px;" [checked]="false">
-              </md-checkbox>
-              <h4 md-line>English</h4>
-              <p md-line class="demo-2"> 9783746589888 </p>
-          </md-list-item>
-</md-list>
-
+        </button>
+        </md-list>
+        
     </md-list>
-		  
-  	</md-sidenav>
+	</md-sidenav>
     
+    <!-- Body -->
 
 	  <body style ="margin: 0px; padding: 0px; background-color: #eee; height: 900px">
 
-      <md-toolbar style="background-color:#2196F3; color:#FFFFFF;  width: 100%; padding: 8px">
-        <button class="app-icon-button" (click)="sidenav.toggle()">
-	        <i class="material-icons app-toolbar-menu" style = "color: #fff">menu</i>
+      <md-toolbar style="background-color:#2196F3; color:#FFFFFF">
+        <button class="toolbar-icon-button" (click)="sidenav.toggle()">
+	        <i class="material-icons" style = "color: #fff">menu</i>
 	      </button>
         <span>Textbook Management</span>
-        <!-- This fills the remaining space of the current row -->
-        <span class="example-fill-remaining-space"></span>
-  
-        <span></span>
       </md-toolbar>
+      
       <app-title-card>Loading...</app-title-card>
       
-      
-      
       <div id="block_container" style="width: 100%; min-width: 1060px">
-
         <div id="bloc1" style="width: 50%"><app-adopted-on-card>Loading...</app-adopted-on-card></div>  
         <div id="bloc2" style="width: 50%"><app-adoption-section-card>Loading...</app-adoption-section-card></div>
-
       </div>
-      
-      
 
-
-
-    </body> 
-
+    </body>   
 </md-sidenav-layout> 
+
+<!-- Overlay -->
+
+<div>
+  
+</div>
+
+<div class="overlay" *ngIf = 'overlay'>
+      <a class="closebtn" (click) ="closeOverlay()">×</a>
+      <div class="inner" style = "width: 20%; margin: auto">
+        <app-edit-term-dialog *ngIf = 'editTerm'>Loading...</app-edit-term-dialog>
+      </div>
+</div>
 
