@@ -1,0 +1,75 @@
+[
+    {
+        "Title": "Art Through the Ages",
+        "ISBN": 9782738495746,
+        "id":389051,
+        "selected": true
+    },
+    {
+        "Title": "Anatomy and Physiology",
+        "ISBN": 9782738498475,
+        "id":389052,
+        "selected": true
+    },
+    {
+        "Title": "Biology",
+        "ISBN": 9782738498374,
+        "id":389053,
+        "selected": true
+    },
+    {
+        "Title": "Chemistry in Context",
+        "ISBN": 9782738497744,
+        "id":389054,
+        "selected": true
+    },
+    {
+        "Title": "Cooking 101",
+        "ISBN": 9782738490101,
+        "id":389055,
+        "selected": true
+    },
+    {
+        "Title": "English in America",
+        "ISBN": 9782738498894,
+        "id":389056,
+        "selected": true
+    },
+    {
+        "Title": "Financial Accounting",
+        "ISBN": 9782738496646,
+        "id":389057,
+        "selected": true
+    },
+    {
+        "Title": "Geology 10th Edition",
+        "ISBN": 9782738499909,
+        "id":389058,
+        "selected": true
+    },
+    {
+        "Title": "History in America 1700 - 1800 and many more",
+        "ISBN": 9782738497324,
+        "id":389059,
+        "selected": true
+    },
+    {
+        "Title": "Justice Courts and Law",
+        "ISBN": 9782738494857,
+        "id":389060,
+        "selected": true
+    },
+    {
+        "Title": "Literature Throughout the Ages",
+        "ISBN": 9782738493745,
+        "id":389061,
+        "selected": true
+    },
+    {
+        "Title": "Microbiology 10th Edition",
+        "ISBN": 9782738497744,
+        "id":389062,
+        "selected": true
+    }
+    
+]

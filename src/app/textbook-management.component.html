@@ -1,12 +1,12 @@
 <!-- This is the sidenav component wrapper. This cannot be a component. -->
 <md-sidenav-layout>
     <md-sidenav #sidenav mode = "side" opened = "true" style = "padding: 0px; margin: 0px; width: 250px">
-      <md-list dense>
+      <md-list dense [ngSwitch]="currentDropdownState">
         
         <!-- School menu -->
         
         <div>
-          <button (click) = "toggleSchoolDropdown()" class = "catalog-menu-button">
+          <button (click) = "toggleDropdownState('school')" class = "catalog-menu-button">
               <md-list-item>
                 <h3 md-line> School </h3>
                 <p md-line>
@@ -14,8 +14,8 @@
                 </p>
               </md-list-item>
           </button>
-          <div (mouseleave) = "toggleSchoolDropdown()" *ngIf = 'schoolDropdown' class="dropdown-content">
-            <a *ngFor = 'let school of schools' (click) = "toggleSchoolDropdown(); updateSchoolDropdown([school.name]); loadTerms([school.childUrl])">{{school.name}}</a>
+          <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'school'" class="dropdown-content">
+            <a *ngFor = 'let school of schools' (click) = "toggleDropdownState(null); updateSchoolDropdown([school.name],[school.id],[school.childUrl])">{{school.name}}</a>
           </div>
         </div>
         
@@ -24,22 +24,22 @@
         <div>
           <button class = "catalog-menu-button" id = "term-dd">
               <md-list-item>
-                <h3 md-line (click) = "toggleTermDropdown()"> Term </h3>
-                <p md-line (click) = "toggleTermDropdown()">
+                <h3 md-line (click) = "toggleDropdownState('term')"> Term </h3>
+                <p md-line (click) = "toggleDropdownState('term')">
                 <span class="demo-2"> {{termDisplayed}} </span>
                 </p>
-                  <button (click) = "toggleTermMenu()" class = "icon-button">
+                  <button (click) = "toggleDropdownState('termMenu')" class = "icon-button">
                     <md-icon class="material-icons">more_vert</md-icon>
                   </button>
               </md-list-item>
           </button>
-          <div (mouseleave) = "toggleTermDropdown()" *ngIf = 'termDropdown' class="dropdown-content">
-            <a *ngFor = 'let term of terms' (click) = "toggleTermDropdown(); updateTermDropdown([term.name])">{{term.name}}</a>
+          <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'term'" class="dropdown-content">
+            <a *ngFor = 'let term of terms' (click) = "toggleDropdownState(null); updateTermDropdown([term.name],[term.id],[term.childUrl],[term.adoptionsUrl])">{{term.name}}</a>
           </div>
-          <div (mouseleave) = "toggleTermMenu()" *ngIf = 'termMenu' class="menu-content">
-            <a (click) = "toggleTermMenu(); openOverlay(); toggleEditTermDialog()">Edit Term</a>
-            <a (click) = "toggleTermMenu(); openOverlay()">Create Term</a>
-            <a (click) = "toggleTermMenu(); openOverlay()">Delete Term</a>
+          <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'termMenu'" class="menu-content">
+            <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Term</a>
+            <a (click) = "toggleDropdownState(null); openOverlay()">Create Term</a>
+            <a (click) = "toggleDropdownState(null); openOverlay()">Delete Term</a>
           </div>
         </div>
         
@@ -48,53 +48,76 @@
         <div>
             <button class = "catalog-menu-button" id = "department-dd">
                <md-list-item>
-                  <h3 md-line (click) = "toggleDepartmentDropdown()"> Department </h3>
-                  <p md-line (click) = "toggleDepartmentDropdown()">
-                    <span class="demo-2"> {{selectedDepartment}} </span>
+                  <h3 md-line (click) = "toggleDropdownState('department')"> Department </h3>
+                  <p md-line (click) = "toggleDropdownState('department')">
+                    <span class="demo-2"> {{departmentDisplayed}} </span>
                   </p>
-                  <button (click) = "toggleDepartmentMenu()" class = "icon-button">
+                  <button (click) = "toggleDropdownState('departmentMenu')" class = "icon-button">
                     <md-icon class="material-icons">more_vert</md-icon>
                   </button>
                </md-list-item>
             </button>
-            <div (mouseleave) = "toggleDepartmentDropdown()" *ngIf = 'departmentDropdown' class="dropdown-content">
-                <a (click) = "toggleDepartmentDropdown()">--</a>
-                <a *ngFor = 'let department of departments' (click) = "toggleDepartmentDropdown(); updateDepartmentDropdown([department])">{{department}}</a>
+            <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'department'" class="dropdown-content">
+                <a (click) = "toggleDropdownState(null)">--</a>
+                <a *ngFor = 'let department of departments' (click) = "toggleDropdownState(null); updateDepartmentDropdown([department.name],[department.id],[department.childUrl],[department.adoptionsUrl])">{{department.name}}</a>
             </div>
-            <div (mouseleave) = "toggleDepartmentMenu()" *ngIf = 'departmentMenu' class="menu-content">
-                <a (click) = "toggleDepartmentMenu(); openOverlay(); toggleEditTermDialog()">Edit Department</a>
-                <a (click) = "toggleDepartmentMenu(); openOverlay()">Create Department</a>
-                <a (click) = "toggleDepartmentMenu(); openOverlay()">Delete Department</a>
+            <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'departmentMenu'" class="menu-content">
+                <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Department</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Create Department</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Delete Department</a>
             </div>
         </div>
         
         <!-- Course menu and more_vert -->
         
-        <button class = "catalog-menu-button">
-          <md-list-item>
-            <h3 md-line> Course </h3>
-            <p md-line>
-              <span class="demo-2"> -- </span>
-            </p>
-              <button class = "icon-button">
-                <md-icon class="material-icons">more_vert</md-icon>
-              </button>
-          </md-list-item>
-        </button>
+        <div>
+            <button class = "catalog-menu-button" id = "course-dd">
+               <md-list-item>
+                  <h3 md-line (click) = "toggleDropdownState('course')"> Course </h3>
+                  <p md-line (click) = "toggleDropdownState('course')">
+                    <span class="demo-2"> {{courseDisplayed}} </span>
+                  </p>
+                  <button (click) = "toggleDropdownState('courseMenu')" class = "icon-button">
+                    <md-icon class="material-icons">more_vert</md-icon>
+                  </button>
+               </md-list-item>
+            </button>
+            <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'course'" class="dropdown-content">
+                <a (click) = "toggleDropdownState(null)">--</a>
+                <a *ngFor = 'let course of courses' (click) = "toggleDropdownState(null); updateCourseDropdown([course.name],[course.id],[course.childUrl],[course.adoptionsUrl])">{{course.name}}</a>
+            </div>
+            <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'courseMenu'" class="menu-content">
+                <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Course</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Create Course</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Delete Course</a>
+            </div>
+        </div>
         
         <!-- Section menu and more_vert -->
+
         
-        <button class = "catalog-menu-button">
-          <md-list-item>
-            <h3 md-line> Section </h3>
-            <p md-line>
-              <span class="demo-2"> -- </span>
-            </p>
-              <button class = "icon-button">
-                <md-icon class="material-icons">more_vert</md-icon>
-              </button>
-          </md-list-item>
-        </button>
+        <div>
+            <button class = "catalog-menu-button" id = "section-dd">
+               <md-list-item>
+                  <h3 md-line (click) = "toggleDropdownState('section')"> Section </h3>
+                  <p md-line (click) = "toggleDropdownState('section')">
+                    <span class="demo-2"> {{sectionDisplayed}} </span>
+                  </p>
+                  <button (click) = "toggleDropdownState('sectionMenu')" class = "icon-button">
+                    <md-icon class="material-icons">more_vert</md-icon>
+                  </button>
+               </md-list-item>
+            </button>
+            <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'section'" class="dropdown-content">
+                <a (click) = "toggleDropdownState(null)">--</a>
+                <a *ngFor = 'let section of sections' (click) = "toggleDropdownState(null); updateSectionDropdown([section.name],[section.id],[section.adoptionsUrl])">{{section.name}}</a>
+            </div>
+            <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'sectionMenu'" class="menu-content">
+                <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Section</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Create Section</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Delete Section</a>
+            </div>
+        </div>
         
         
         <md-divider></md-divider>
@@ -107,40 +130,45 @@
             <p md-line>
             <span class="demo-2" style="font-size: 13px"> Adoptions by Title </span>
             </p>
-            <button  (click) = "toggleAdoptionsMenu()" class="icon-button">
+            <button  (click) = "toggleDropdownState('adoptionsMenu')" class="icon-button">
 	            <md-icon class="material-icons">list</md-icon>
 	          </button>
           </md-list-item>
-          <div (mouseleave) = "toggleAdoptionsMenu()" *ngIf = 'adoptionsMenu' class="menu-content">
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Refine Adoptions</a>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Add Adoption</a>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Delete Selected Adoptions</a>
+          <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'adoptionsMenu'" class="menu-content">
+                <a (click) = "toggleDropdownState(null); openOverlay()">Refine Adoptions</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Add Adoption</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Delete Selected Adoptions</a>
                 <hr COLOR=#eee WIDTH=90% HR SIZE=0>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Create Order</a>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Print Course Labels</a>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Update Research Status</a>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Export Selected Adoptions</a>
-                <a (click) = "toggleAdoptionsMenu(); openOverlay()">Select All / Select None</a>
+                <a (click) = "toggleDropdownState(null); openOverlay(); createOrder()">Create Order</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Print Course Labels</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Update Research Status</a>
+                <a (click) = "toggleDropdownState(null); openOverlay()">Export Selected Adoptions</a>
+                <a (click) = "toggleDropdownState(null); selectAllSelectNone()">Select All / Select None</a>
                 
           </div>
         </div>
           
           <!-- Adoptions by Title -->
           
-        <button *ngFor = 'let adoption of adoptionsByTitle' class = "catalog-menu-button" (click) = "selectAdoption([adoption.ISBN])" id = "{{adoption.ISBN}}">
+        
+
+        <div class = "list-hover" id = "{{adoption.id}}" *ngFor = 'let adoption of adoptionsByTitle'>
           <md-list-item>
             <a md-list-avatar style="padding-bottom: 10px">
-              <md-checkbox [checked]="false">
+              <md-checkbox [checked]="adoption.selected === true" (click)=toggleCheckmark([adoption])>
               </md-checkbox>
             </a>
-              <h4 md-line> {{adoption.Title}} </h4>
-              <p md-line class="demo-2"> {{adoption.ISBN}} </p>
+            <button class = "list-button" (click) = "adoptionSelected([adoption.id])">
+              <h4 md-line style = "margin: 2px; font-weight: normal; font-size: 13px"> {{adoption.Title}} </h4>
+              <p md-line style = "margin: 2px" class="demo-2"> {{adoption.ISBN}} </p>
+            </button>
           </md-list-item>
-        </button>
-        </md-list>
-        
+          </div>
+       
+        </md-list>  
     </md-list>
 	</md-sidenav>
+    
     
     <!-- Body -->
 

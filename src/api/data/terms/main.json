@@ -1,0 +1,20 @@
+[
+    { 
+        "name":"Main Summer 2016",
+        "id": 12341,
+        "childUrl": "api/data/departments/main_summer.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer.json"
+    },
+    {
+        "name":"Main Fall 2016",
+        "id": 12342,
+        "childUrl": "api/data/departments/main_fall.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_fall.json"
+    },
+    {
+        "name":"Main Spring 2017",
+        "id": 12343,
+        "childUrl": "api/data/departments/main_spring.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_spring.json"
+    }
+]

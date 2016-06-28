@@ -25,16 +25,12 @@
   text-decoration: none;
 }
 
-p {
-  font-family: roboto;
-}
-
 a {
   cursor: pointer;
 }
 
 .demo-2 {
-  color: #757575
+  color: #757575;
 }
 
 #block_container
@@ -48,6 +44,8 @@ a {
     padding: 0px;
     margin: 0px;
 }
+     
+     
      
 button.catalog-menu-button {
   padding: 0px;
@@ -81,6 +79,18 @@ button.icon-button {
   outline: none;
 }
 
+button.list-button {
+  background-color: inherit;
+  border: none;
+  text-align: left;
+  width: 180px;
+  outline: none;
+  cursor: pointer;
+}
+
+.list-hover:hover {
+  background-color: #eee !important;
+}
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
@@ -88,6 +98,7 @@ button.icon-button {
     background-color: #fff;
     min-width: 200px;
     box-shadow: 1px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
 /* Links inside the dropdown */
@@ -106,6 +117,7 @@ button.icon-button {
 /* Menu Content (Hidden by Default) */
 .menu-content {
     position: absolute;
+    margin-top: -50px;
     background-color: #fff;
     min-width: 160px;
     box-shadow: 1px 8px 16px 0px rgba(0,0,0,0.2);

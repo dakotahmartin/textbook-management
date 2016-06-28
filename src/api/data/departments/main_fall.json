@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Biology",
+        "id": "bio123",
+        "childUrl": "api/data/courses/98.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/98.json"
+    },
+    {
+        "name": "Art",
+        "id": "art123",
+        "childUrl": "api/data/courses/98.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/88.json"
+    },
+    {
+        "name": "Chemistry",
+        "id": "chem123",
+        "childUrl": "api/data/courses/87.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/87.json"
+    }
+]

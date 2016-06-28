@@ -2,21 +2,21 @@
     { 
         "name":"Weber State University",
         "id": 1231,
-        "childUrl": "api/data/terms/1231.json"
+        "childUrl": "api/data/terms/main.json"
     },
     {
         "name":"Weber State Downtown",
         "id": 1232,
-        "childUrl": "api/data/terms/1232.json"
+        "childUrl": "api/data/terms/downtown.json"
     },
     {
         "name":"Weber State Davis",
         "id": 1233,
-        "childUrl": "api/data/terms/1233.json"
+        "childUrl": "api/data/terms/davis.json"
     },
     {
         "name":"Weber State Art Elements",
         "id": 1234,
-        "childUrl": "api/data/terms/1234.json"
+        "childUrl": "api/data/terms/art.json"
     }
 ]

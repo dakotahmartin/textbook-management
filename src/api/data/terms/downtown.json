@@ -1,0 +1,20 @@
+[
+    { 
+        "name":"Downtown Summer 2016",
+        "id": 12341,
+        "childUrl": "api/data/departments/12341.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/123451.json"
+    },
+    {
+        "name":"Downtown Fall 2016",
+        "id": 12342,
+        "childUrl": "api/data/departments/12342.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/123451.json"
+    },
+    {
+        "name":"Downtown Spring 2017",
+        "id": 12343,
+        "childUrl": "api/data/departments/12343.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/123451.json"
+    }
+]

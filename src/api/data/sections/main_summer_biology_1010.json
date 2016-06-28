@@ -1,0 +1,17 @@
+[
+    {
+        "name": "01a 9:00am MWF",
+        "id": "01a123",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer_biology_1010_01a.json"
+    },
+    {
+        "name": "02b 10:30am TR",
+        "id": "02b123",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer_biology_1010_02b.json"
+    },
+    {
+        "name": "03c 2:45pm TR",
+        "id": "03c123",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer_biology_1010_03c.json"
+    }
+]

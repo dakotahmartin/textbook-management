@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Biology",
+        "id": "bio123",
+        "childUrl": "api/data/courses/main_summer_biology.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer_biology.json"
+    },
+    {
+        "name": "Art",
+        "id": "art123",
+        "childUrl": "api/data/courses/main_summer_art.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer_art.json"
+    },
+    {
+        "name": "Chemistry",
+        "id": "chem123",
+        "childUrl": "api/data/courses/main_summer_chemistry.json",
+        "adoptionsUrl": "api/data/adoptionsByTitle/main_summer_chemistry.json"
+    }
+]

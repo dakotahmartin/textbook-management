@@ -23,8 +23,28 @@ export class DataService {
             .map((response: Response) => <any[]>response.json())
     }
     
-    getAdoptionsByTitle() {
-        return this._http.get(this._adoptionsByTitleUrl)
+    getDepartments(url) {
+        return this._http.get(url)
+            .map((response: Response) => <any[]>response.json())
+    }
+    
+    getAdoptionsByTitle(url) {
+        return this._http.get(url)
+            .map((response: Response) => <any[]>response.json())
+    }
+    
+    getCourses(url) {
+        return this._http.get(url)
+            .map((response: Response) => <any[]>response.json())
+    }
+    
+    getSections(url) {
+        return this._http.get(url)
+            .map((response: Response) => <any[]>response.json())
+    }
+    
+    getTitleCard(url) {
+        return this._http.get(url)
             .map((response: Response) => <any[]>response.json())
     }
     
