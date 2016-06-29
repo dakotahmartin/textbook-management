@@ -15,7 +15,7 @@
               </md-list-item>
           </button>
           <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'school'" class="dropdown-content">
-            <a *ngFor = 'let school of schools' (click) = "toggleDropdownState(null); updateSchoolDropdown([school.name],[school.id],[school.childUrl])">{{school.name}}</a>
+            <a *ngFor = 'let school of schools' (click) = "toggleDropdownState(null); updateSchoolDropdown(school)">{{school.name}}</a>
           </div>
         </div>
         
@@ -34,7 +34,7 @@
               </md-list-item>
           </button>
           <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'term'" class="dropdown-content">
-            <a *ngFor = 'let term of terms' (click) = "toggleDropdownState(null); updateTermDropdown([term.name],[term.id],[term.childUrl],[term.adoptionsUrl])">{{term.name}}</a>
+            <a *ngFor = 'let term of terms' (click) = "toggleDropdownState(null); updateTermDropdown(term)">{{term.name}}</a>
           </div>
           <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'termMenu'" class="menu-content">
             <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Term</a>
@@ -59,7 +59,7 @@
             </button>
             <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'department'" class="dropdown-content">
                 <a (click) = "toggleDropdownState(null)">--</a>
-                <a *ngFor = 'let department of departments' (click) = "toggleDropdownState(null); updateDepartmentDropdown([department.name],[department.id],[department.childUrl],[department.adoptionsUrl])">{{department.name}}</a>
+                <a *ngFor = 'let department of departments' (click) = "toggleDropdownState(null); updateDepartmentDropdown(department)">{{department.name}}</a>
             </div>
             <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'departmentMenu'" class="menu-content">
                 <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Department</a>
@@ -84,7 +84,7 @@
             </button>
             <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen="'course'" class="dropdown-content">
                 <a (click) = "toggleDropdownState(null)">--</a>
-                <a *ngFor = 'let course of courses' (click) = "toggleDropdownState(null); updateCourseDropdown([course.name],[course.id],[course.childUrl],[course.adoptionsUrl])">{{course.name}}</a>
+                <a *ngFor = 'let course of courses' (click) = "toggleDropdownState(null); updateCourseDropdown(course)">{{course.name}}</a>
             </div>
             <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'courseMenu'" class="menu-content">
                 <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Course</a>
@@ -110,7 +110,7 @@
             </button>
             <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'section'" class="dropdown-content">
                 <a (click) = "toggleDropdownState(null)">--</a>
-                <a *ngFor = 'let section of sections' (click) = "toggleDropdownState(null); updateSectionDropdown([section.name],[section.id],[section.adoptionsUrl])">{{section.name}}</a>
+                <a *ngFor = 'let section of sections' (click) = "toggleDropdownState(null); updateSectionDropdown(section)">{{section.name}}</a>
             </div>
             <div (mouseleave) = "toggleDropdownState(null)" *ngSwitchWhen = "'sectionMenu'" class="menu-content">
                 <a (click) = "toggleDropdownState(null); openOverlay(); toggleEditTermDialog()">Edit Section</a>
@@ -159,8 +159,8 @@
               </md-checkbox>
             </a>
             <button class = "list-button" (click) = "adoptionSelected([adoption.id])">
-              <h4 md-line style = "margin: 2px; font-weight: normal; font-size: 13px"> {{adoption.Title}} </h4>
-              <p md-line style = "margin: 2px" class="demo-2"> {{adoption.ISBN}} </p>
+              <h4 md-line style = "margin: 2px; font-weight: normal; font-size: 13px"> {{adoption.name}} </h4>
+              <p md-line style = "margin: 2px" class="demo-2"> {{adoption.ean}} </p>
             </button>
           </md-list-item>
           </div>

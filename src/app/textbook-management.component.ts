@@ -54,6 +54,7 @@ import { DeleteTermDialogComponent } from './delete-term-dialog';
 
 export class TextbookManagementAppComponent {
   constructor(private _dataService: DataService, private _router: Router) {
+    this._dataService = _dataService;
   }
   
   /** This variable hides / shows a tint over the page for dialogs. */
@@ -103,11 +104,10 @@ export class TextbookManagementAppComponent {
   /** These functions update the name displayed on the dropdown and updates the 
    * --SelectedId variable. */
    
-  updateSchoolDropdown(name, id, childUrl): void{
-    console.log("in updateSchoolDropdown() method");
-    console.log("updated schoolDisplayed to " + name + " and schoolId to" + id);
-    this.schoolDisplayed = name;
-    this.schoolSelectedId = id;
+  updateSchoolDropdown(school): void{
+    this.schoolDisplayed = school.name;
+    this.schoolSelectedId = school.id;
+    
     this.termDisplayed = "--";
     this.departmentDisplayed = "--";
     this.courseDisplayed = "--";
@@ -116,113 +116,79 @@ export class TextbookManagementAppComponent {
     this.departmentSelectedId = null;
     this.courseSelectedId = null;
     this.sectionSelectedId = null;
-    this.terms = [{"name":"--","id":null,"childUrl":null,"adoptionsUrl":null}];
-    console.log("clearing term list. " + "Term Name = " + this.terms[0].name);
-    this.departments = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-    console.log("clearing department list. " + "Department Name = " + this.departments[0].name);
-    this.courses = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-    console.log("clearing courses list. " + "Course Name = " + this.courses[0].name);
-    this.sections = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-    console.log("clearing sections list. " + "Section Name = " + this.sections[0].name);
+    this.terms = [];
+    this.departments = [];
+    this.courses = [];
+    this.sections = [];
     this.adoptionsByTitle = [];
-    console.log("clearing adoptions list. ");
-    console.log("calling loadTerms with " + childUrl);
-    if (childUrl) {
-      this.loadTerms(childUrl)
-    } else { alert("no childUrl!")}
+    if (school.childrenUrl) {
+      this.loadTerms(school.childrenUrl)
+    } else { alert("no childrenUrl!")}
   }
   
-    updateTermDropdown(name, id, childUrl, adoptionsUrl): void {
-      console.log("in updateTermDropdown() method");
-      console.log("+++ parameters passed into updateTermDropdownMethod " + name + id + childUrl + adoptionsUrl)
-      this.termDisplayed = name;
-      this.termSelectedId = id;
+    updateTermDropdown(term): void {
+      this.termDisplayed = term.name;
+      this.termSelectedId = term.id;
       this.departmentDisplayed = "--";
       this.courseDisplayed = "--";
       this.sectionDisplayed = "--";
       this.departmentSelectedId = null;
       this.courseSelectedId = null;
       this.sectionSelectedId = null;
-      console.log("updated term name to " + this.termDisplayed + " and term id to" + this.termSelectedId);
-      this.departments = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-      console.log("clearing department list. " + "Department Name = " + this.departments[0].name);
-      this.courses = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-      console.log("clearing courses list. " + "Course Name = " + this.courses[0].name);
-      this.sections = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-      console.log("clearing sections list. " + "Section Name = " + this.sections[0].name);
+      this.departments = [];
+      this.courses = [];
+      this.sections = [];
       this.adoptionsByTitle = [];
-      console.log("clearing adoptions list. " + "cleared = " + this.adoptionsByTitle);
-      console.log("calling for departments, will not auto load a department, only ready list for user.");
-      if (childUrl) {
-        this.loadDepartments(childUrl)
-      } else { alert("no childUrl on Term " + this.termDisplayed + childUrl)};
-      console.log("calling for adoptions from updateTermDropdown, will automatically select the first adoption in the list. This will always happen.");
-      if (adoptionsUrl) {
-        this.loadAdoptions(adoptionsUrl)
+      if (term.childrenUrl) {
+        this.loadDepartments(term.childrenUrl)
+      } else { alert("no childrenUrl on Term ")};
+      if (term.titlesUrl != null) {
+        this.loadAdoptions(term.titlesUrl)
       } else { alert("no adoptionsUrl on Term " + this.termDisplayed)};
       console.log("leaving updateTermDropdown() method")
   }
   
-  updateDepartmentDropdown(name, id, childUrl, adoptionsUrl): void {
-      console.log("in updateDepartmentDropdown() method");
-      this.departmentDisplayed = name;
-      this.departmentSelectedId = id;
+  updateDepartmentDropdown(department): void {
+      this.departmentDisplayed = department.name;
+      this.departmentSelectedId = department.id;
       this.courseDisplayed = "--";
       this.sectionDisplayed = "--";
       this.courseSelectedId = null;
       this.sectionSelectedId = null;
-      console.log("updated term name to " + this.departmentDisplayed + " and term id to" + this.departmentSelectedId);
-      this.courses = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-      console.log("clearing courses list. " + "Course Name = " + this.courses[0].name);
-      this.sections = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-      console.log("clearing sections list. " + "Section Name = " + this.sections[0].name);
+      this.courses = [];
+      this.sections = [];
       this.adoptionsByTitle = [];
-      console.log("clearing adoptions list. ");
-      console.log("calling for departments, will not auto load a department, only ready list for user.");
-      if (childUrl) {
-        this.loadCourses(childUrl)
-      } else { alert("no childUrl on Department " + this.courseDisplayed + childUrl)};
-      console.log("calling for adoptions from updateDepartmentDropdown, will automatically select the first adoption in the list. This will always happen.");
-      if (adoptionsUrl) {
-        this.loadAdoptions(adoptionsUrl)
+      if (department.childrenUrl) {
+        this.loadCourses(department.childrenUrl)
+      } else { alert("no childUrl on Department")};
+      if (department.titlesUrl) {
+        this.loadAdoptions(department.titlesUrl)
       } else { alert("no adoptionsUrl on Department " + this.departmentDisplayed)};
-      console.log("leaving updateDepartmentDropdown() method. Course list is now ready for user. well not really yet, still have to do that.")
   }
   
-  updateCourseDropdown(name, id, childUrl, adoptionsUrl): void {
+  updateCourseDropdown(course): void {
       console.log("in updateCourseDropdown() method");
-      this.courseDisplayed = name;
-      this.courseSelectedId = id;
+      this.courseDisplayed = course.name;
+      this.courseSelectedId = course.id;
       this.sectionDisplayed = "--";
       this.sectionSelectedId = null;
-      console.log("updated course name to " + this.courseDisplayed + " and course id to" + this.courseSelectedId);
-      this.sections = [{"name":null,"id":null,"childUrl":null,"adoptionsUrl":null}];
-      console.log("clearing sections list. " + "Section Name = " + this.sections[0].name);
+      this.sections = [];
       this.adoptionsByTitle = [];
-      console.log("clearing adoptions list. ");
-      console.log("calling for sections, will not auto load a section, only ready list for user.");
-      if (childUrl) {
-        this.loadSections(childUrl)
-      } else { alert("no childUrl on course " + this.sectionDisplayed + childUrl)};
-      console.log("calling for adoptions from updateCourseDropdown, will automatically select the first adoption in the list. This will always happen.");
-      if (adoptionsUrl) {
-        this.loadAdoptions(adoptionsUrl)
+      if (course.childrenUrl) {
+        this.loadSections(course.childrenUrl)
+      } else { alert("no childUrl on course ")};
+      if (course.titlesUrl) {
+        this.loadAdoptions(course.titlesUrl)
       } else { alert("no adoptionsUrl on course " + this.courseDisplayed)};
-      console.log("leaving updateCourseDropdown() method. Section list is now ready for user. well not really yet, still have to do that.")
   }
   
-  updateSectionDropdown(name, id, adoptionsUrl): void {
-      console.log("in updateSectionDropdown() method");
-      this.sectionDisplayed = name;
-      this.sectionSelectedId = id;
-      console.log("updated section name to " + this.sectionDisplayed + " and section id to" + this.sectionSelectedId);
+  updateSectionDropdown(section): void {
+      this.sectionDisplayed = section.name;
+      this.sectionSelectedId = section.id;
       this.adoptionsByTitle = [];
-      console.log("clearing adoptions list. ");
-      console.log("calling for adoptions from updateSectionDropdown(), will automatically select the first adoption in the list. This will always happen.");
-      if (adoptionsUrl) {
-        this.loadAdoptions(adoptionsUrl)
-      } else { alert("no adoptionsUrl on section " + this.sectionDisplayed)};
-      console.log("leaving updateSectionDropdown() method.")
+      if (section.titlesUrl) {
+        this.loadAdoptions(section.titlesUrl)
+      } else { alert("no adoptionsUrl on section ")};
   }
   
   
@@ -243,28 +209,18 @@ export class TextbookManagementAppComponent {
    * dropdown immediately below with the first object in the array. */
   
   loadTerms(url: string): void{
-    console.log("in loadTerms() method");
-    console.log("calling for terms");
     this._dataService.getTerms(url)
     .subscribe(terms => {
     this.terms = terms;
-    console.log("Loading Terms from..." + url);
-    console.log("saving terms to terms variable, here's the proof: " + this.terms[0].name)
-    console.log("calling updateTermDropdown() method. This is automatically done after selecting a school. Passing in first term on the list: " + this.terms[0].name, this.terms[0].id, this.terms[0].childUrl, this.terms[0].adoptionsUrl)
-    this.updateTermDropdown(this.terms[0].name, this.terms[0].id, this.terms[0].childUrl, this.terms[0].adoptionsUrl);
-    console.log("leaving loadTerms method");
+    let term = terms[0];
+    this.updateTermDropdown(term);
     }) 
   } 
   
   loadDepartments(url: string): void {
-    console.log("in loadDepartments() method")
-    console.log("calling for departments");
     this._dataService.getDepartments(url)
     .subscribe(departments => {
     this.departments = departments;
-    console.log("Loading Departments..." + url);
-    console.log("departments loaded, here's the proof " + departments[0].name);
-    console.log("leaving loadDepartments() method. The departments dropdown is now ready for the user")
     })
   }
   
@@ -293,14 +249,9 @@ export class TextbookManagementAppComponent {
   }
   
   loadAdoptions(url: string): void {
-    console.log("in loadAdoptions() method")
-    console.log("calling for adoptions")
     this._dataService.getAdoptionsByTitle(url)
     .subscribe(adoptionsByTitle => {
-    this.adoptionsByTitle = adoptionsByTitle;
-    console.log("Loading Adoptions..." + url);
-    console.log("adoptions loaded, here's the proof: " + this.adoptionsByTitle[0].title)
-    console.log("leaving loadAdoptions() method.")
+    this.adoptionsByTitle = adoptionsByTitle
     })
   }
   
@@ -336,28 +287,24 @@ export class TextbookManagementAppComponent {
   }
   
   toggleCheckmark(adoption): void {
-    alert("function called, " + adoption.selected);
+    alert("function called, " + adoption.selected + adoption.id);
     adoption.selected = !adoption.selected;
     alert(adoption.selected + " from toggleCheckmark function")
   }
   
   /** On initialization of the page, fetch the schools. This will later need to be done by location
-   * ID. Call the updateSchoolDropdown function passing in the first school's name and ID. 
-   * call the getTerms method passing in the childUrl from that school. This will load all terms 
-   * associated with that school. Call the updateTermDropdown and pass in the first term's name and 
-   * ID. Finally load all adoptions related to the selected term.
+   * ID. Call the updateSchoolDropdown function passing in the first school's name and ID.
    */
   
   ngOnInit(): void {
     
+        alert("This isn't working because I left out the authToken to hit the API. Add this to the data.services.ts file.");
+    
         this._dataService.getSchools().subscribe(schools => 
         {
-          console.log("calling for schools");
         this.schools = schools;
-          console.log("Schools saved to schools variable");
-          console.log("calling updateSchoolDropdown() method from ngOnInit");
-        this.updateSchoolDropdown(this.schools[0].name,this.schools[0].id, this.schools[0].childUrl);
-          console.log("leaving ngOnInit")
+        let school = schools[0];
+        this.updateSchoolDropdown(school);
         })
   }
   
