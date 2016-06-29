@@ -155,7 +155,7 @@
         <div class = "list-hover" id = "{{adoption.id}}" *ngFor = 'let adoption of adoptionsByTitle'>
           <md-list-item>
             <a md-list-avatar style="padding-bottom: 10px">
-              <md-checkbox [checked]="adoption.selected === true" (click)=toggleCheckmark([adoption])>
+              <md-checkbox [checked]="adoption.selected" (change)="toggleCheckmark(adoption)">
               </md-checkbox>
             </a>
             <button class = "list-button" (click) = "adoptionSelected([adoption.id])">
