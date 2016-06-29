@@ -338,7 +338,7 @@ export class TextbookManagementAppComponent {
   toggleCheckmark(adoption): void {
     alert("function called, " + adoption.selected);
     adoption.selected = !adoption.selected;
-    alert(adoption.selected + "from toggleCheckmark function")
+    alert(adoption.selected + " from toggleCheckmark function")
   }
   
   /** On initialization of the page, fetch the schools. This will later need to be done by location
